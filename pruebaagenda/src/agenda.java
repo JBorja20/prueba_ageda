@@ -1,7 +1,13 @@
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.ImageIcon;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -118,7 +124,7 @@ Connection con = null;
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelTel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -126,20 +132,21 @@ Connection con = null;
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelUser, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextTel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(270, 318, Short.MAX_VALUE))
+                .addGap(108, 108, 108)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextTel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(empresa, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(181, 181, 181))
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addContainerGap(207, Short.MAX_VALUE)
                 .addComponent(jLabelnumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(97, 97, 97)
                 .addComponent(jTextUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(196, 196, 196))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(101, 101, 101)
                 .addComponent(jButtonSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -152,13 +159,13 @@ Connection con = null;
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(empresa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelnumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jTextUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelnumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelUser, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -196,7 +203,12 @@ Connection con = null;
     }//GEN-LAST:event_jTextTelKeyTyped
 
     private void jButtonAceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptActionPerformed
-        String cadena3, cadena4, cadena5, cadena6, cadena7;
+        String cadena3, cadena6;
+             String host = "localhost";
+   String dataBase = "base_daots";
+     String user = "root";
+    String pass = "";
+        
 
         cadena3 = jTextNombre.getText();
         
@@ -208,32 +220,20 @@ Connection con = null;
             javax.swing.JOptionPane.showMessageDialog(this,"Debe llenar todos los campos \n","AVISO!",javax.swing.JOptionPane.INFORMATION_MESSAGE);
             jTextNombre.requestFocus();
         }else {
-            try {
-
-                //String url = "jdbc:mysql://localhost:puerto/base de datos";
-                String url = "jdbc:mysql://C:\\Users\\Programacion\\Documents\\NetBeansProjects\\prueba_ageda\\bd";
-                String usuario = "root";
-                String contraseña = "";
-
-                //Class.forName("com.mysql.jdbc.Driver").newInstance();
-                
-                if ( con != null )
-                System.out.println("Se ha establecido una conexión a la base de datos " +
-                    "\n " + url );
-
-               // stmt = con.createStatement();
-                //stmt.executeUpdate("INSERT INTO datos VALUES('"+0+"','"+cadena3+"','"+cadena4+"','"+cadena5+"','"+cadena6+"','"+cadena7+"')");
-                System.out.println("Los valores han sido agregados a la base de datos ");
-
-          /*  } catch (InstantiationException ex) {
-                Logger.getLogger(usuarios.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                Logger.getLogger(usuarios.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(usuarios.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(usuarios.class.getName()).log(Level.SEVERE, null, ex);
-          */  }
+         
+          try{
+       
+              if (con==null){
+                    Class.forName("com.mysql.jdbc.Driver");
+                    String url = "jdbc:mysql://"+host+":3306/";
+                    con = DriverManager.getConnection( url, user, pass );
+                 }
+          }catch(ClassNotFoundException ex){
+              JOptionPane.showMessageDialog(null, "Error Interno!", "Registro de Coneccion falló", JOptionPane.ERROR_MESSAGE);
+          }
+          catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Acceso denegado!!", "Usuario NO Autorizado", JOptionPane.ERROR_MESSAGE);
+          }  
           
 
             finally {
@@ -258,14 +258,14 @@ Connection con = null;
         System.exit(0);
     }//GEN-LAST:event_jButtonSalidaActionPerformed
 
-    private void jTextUser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextUser1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextUser1ActionPerformed
-
     private void jTextUser1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextUser1KeyTyped
         char c = evt.getKeyChar();
         if(c<'0' || c>'9') evt.consume();
     }//GEN-LAST:event_jTextUser1KeyTyped
+
+    private void jTextUser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextUser1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextUser1ActionPerformed
 
     /**
      * @param args the command line arguments
